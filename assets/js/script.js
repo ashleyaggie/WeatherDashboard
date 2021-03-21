@@ -7,7 +7,7 @@ var searchHistoryEl = $('#searchHist');
 var forecastTitleEl = $('.forecastTitle');
 var searchHistory = [];
 var uvRes;
-var UVI;
+var cityNameVal;
 
 // Setting variable to equal the current date
 var today = moment().format("M/D/YYYY");
@@ -20,7 +20,7 @@ if (localStorage.length !== 0) {
   for (var i = 0; i < searchHistory.length; i++) {
     var searchItem = searchHistory[i];
 
-    var li = $("<li></li>").addClass('list-group-item').text(searchItem);
+    var li = $("<li></li>").addClass('list-group-item').addClass(searchItem + 'Btn').text(searchItem);
 
     searchHistoryEl.append(li);
   }
@@ -30,7 +30,7 @@ if (localStorage.length !== 0) {
 function searchCurrent(event) {
   event.preventDefault();
 
-  var cityNameVal = (cityName.val());
+  cityNameVal = (cityName.val());
 
   // Catch nothing inputted
   if (!cityNameVal) {
@@ -113,7 +113,7 @@ function searchCurrent(event) {
       });
 
       function uvdetermine(uvRes) {
-        UVI = uvRes.value;
+        var UVI = uvRes.value;
         uviEl = $('<span></span>').addClass('p-1');
         uviEl.text(UVI);
         uvCurrent.text('UV Index: ');
@@ -183,19 +183,25 @@ function searchForecast(weathRes) {
         var forecastDateForm = moment(forecastDate,'X').format('M/DD/YYYY');
         header.text(forecastDateForm);
 
-        // Body info
+        // Card body info
         var bodyText = $('<div></div>');
+
+        // Temperature
         var tempText = $('<p></p>').text('Temp: ' + forecast[i].temp.day + ' °F');
 
-        console.log(forecast[i].weather[0].icon);
+        // Weather icon
         var forecastIcon = forecast[i].weather[0].icon;
         forecastIconUrl = 'http://openweathermap.org/img/wn/' + forecastIcon + '@2x.png';
         console.log(forecastIconUrl);
         var weathImg = $('<img>').attr('src',forecastIconUrl);
 
+        // Add to card body and add humidity
         bodyText.append(weathImg).append(tempText).append($('<p><br>Humidity: ' + forecast[i].humidity + '%</p>'));
 
+        // Add date and info to card
         card.append(header).append(bodyText);
+
+        // Add card to forecast element
         forecastEl.append(card);
       }
     }
