@@ -114,7 +114,7 @@ function searchCurrent(event) {
 
       function uvdetermine(uvRes) {
         UVI = uvRes.value;
-        uviEl = $('<span></span>');
+        uviEl = $('<span></span>').addClass('p-1');
         uviEl.text(UVI);
         uvCurrent.text('UV Index: ');
         uvCurrent.append(uviEl);
