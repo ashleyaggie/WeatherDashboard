@@ -46,6 +46,8 @@ WHEN I click on a city in the search history
 
 THEN I am again presented with current and future conditions for that city
 
+    * Added a click to the list to get the city name of the list item and run the weather function with that city name.
+
 
 ## Credits
 
