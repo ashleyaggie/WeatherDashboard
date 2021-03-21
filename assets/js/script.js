@@ -61,25 +61,7 @@ function searchCurrent(event) {
     // Run forecast with weather response
     searchForecast(weathRes);
 
-    // Fetch UVI
-    var uvQuery = 'https://api.openweathermap.org/data/2.5/uvi?lat=' + weathRes.coord.lat + '&lon=' + weathRes.coord.lon + '&appid=b002df7a7fe0ceddfb7f66664951ce5a';
-
-    fetch(uvQuery)
-    .then(function (response){
-      if (!response.ok) {
-        throw response.json();
-      }
-
-      return response.json();
-    }).then(function (uvRes) {
-      uvdetermine(uvRes);
-    }).catch(function (error) {
-      console.error(error);
-    });
-
-    function uvdetermine(uvRes) {
-      UVI = uvRes.value;
-    }
+    
 
     // Catch nonexistent cities - else show info on page
     if (weathRes === 0) {
@@ -113,8 +95,39 @@ function searchCurrent(event) {
       var windCurrent = $('<p></p>');
       windCurrent.text('Wind Speed: ' + weathRes.wind.speed + ' MPH');
       var uvCurrent = $('<p></p>');
-      uvCurrent.text('UV Index: ' + UVI);
-      
+
+      // Fetch UVI
+      var uvQuery = 'https://api.openweathermap.org/data/2.5/uvi?lat=' + weathRes.coord.lat + '&lon=' + weathRes.coord.lon + '&appid=b002df7a7fe0ceddfb7f66664951ce5a';
+
+      fetch(uvQuery)
+      .then(function (response){
+        if (!response.ok) {
+          throw response.json();
+        }
+
+        return response.json();
+      }).then(function (uvRes) {
+        uvdetermine(uvRes);
+      }).catch(function (error) {
+        console.error(error);
+      });
+
+      function uvdetermine(uvRes) {
+        UVI = uvRes.value;
+        uviEl = $('<span></span>');
+        uviEl.text(UVI);
+        uvCurrent.text('UV Index: ');
+        uvCurrent.append(uviEl);
+
+        if (UVI < 3.0) {
+          uviEl.css('background-color','green').css('color','white')
+        } else if (UVI >= 3 && UVI < 6) {
+          uviEl.css('background-color','yellow').css('color','white')
+        } else {
+          uviEl.css('background-color','red').css('color','white')
+        }
+      }
+
       // Add p tags to current weather element
       currentInfoEl.append(tempCurrent).append(humidCurrent).append(windCurrent).append(uvCurrent);
     }
@@ -158,14 +171,14 @@ function searchForecast(weathRes) {
       for (var i = 1; i < 6; i++) {
 
         // Card
-        var card = $('<div></div>').addClass('card').addClass('px-2').addClass('pt-2').attr('style','width: 10rem').attr('style','float: left');
+        var card = $('<div></div>').addClass('card').addClass('px-2').addClass('pt-2').css('width','10rem').css('float','left');
 
         // Body
         var body = $('<div></div>');
         body.addClass('card-body');
 
         // Title - uses date from API
-        var header = $('<h5></h5>').attr('style','font-weight: bold').addClass('card-title');
+        var header = $('<h5></h5>').css('font-weight','bold').addClass('card-title');
         var forecastDate = forecast[i].dt;
         var forecastDateForm = moment(forecastDate,'X').format('M/DD/YYYY');
         header.text(forecastDateForm);
