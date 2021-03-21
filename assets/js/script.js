@@ -7,6 +7,7 @@ var searchHistoryEl = $('#searchHist');
 var forecastTitleEl = $('.forecastTitle');
 var searchHistory = [];
 var uvRes;
+var cityNameVal;
 
 // Setting variable to equal the current date
 var today = moment().format("M/D/YYYY");
@@ -25,17 +26,19 @@ if (localStorage.length !== 0) {
   }
 }
 
+// When list is clicked, get the city name of the list item clicked and run current weather function
 searchHistoryEl.click(function(event) {
   event.preventDefault();
 
+  console.log(event.target.textContent);
 
+  cityNameVal = event.target.textContent;
+  searchCurrent(event,cityNameVal);
 })
 
 // Current weather API
 function searchCurrent(event) {
   event.preventDefault();
-
-  var cityNameVal = (cityName.val());
 
   // Catch nothing inputted
   if (!cityNameVal) {
@@ -65,8 +68,6 @@ function searchCurrent(event) {
 
     // Run forecast with weather response
     searchForecast(weathRes);
-
-    
 
     // Catch nonexistent cities - else show info on page
     if (weathRes === 0) {
@@ -127,7 +128,7 @@ function searchCurrent(event) {
         if (UVI < 3.0) {
           uviEl.css('background-color','green').css('color','white')
         } else if (UVI >= 3 && UVI < 6) {
-          uviEl.css('background-color','yellow').css('color','white')
+          uviEl.css('background-color','#F5BD1F')
         } else {
           uviEl.css('background-color','red').css('color','white')
         }
@@ -218,4 +219,7 @@ function searchForecast(weathRes) {
 }
 
 // When clicking search button, search for city name
-searchBtn.click(searchCurrent);
+searchBtn.click(function() {
+  cityNameVal = (cityName.val());
+  searchCurrent(event,cityNameVal);
+})
