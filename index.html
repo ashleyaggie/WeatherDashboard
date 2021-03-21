@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <title>Weather Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Weather Dashboard</h1>
+    </header>
+
+    <main>
+        <div class="row">
+            <div class="col-12 col-md-3 col-lg-3 bg-light px-4 vh-100">
+                <h2 class="searchTitle">Search for a City:</h2>
+                <form class="input-group mb-3">
+                    <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" id="cityInput">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary btn-info" type="button" id="searchBtn"><img src="assets/images/magnifying-glass-3-16.png"></button>
+                    </div>
+                </form>
+                <ul id="searchHist" class="list-group"></ul>
+                
+            </div>
+        
+            <div class="col-12 col-md-9 col-lg-9">
+
+                <div id="currentInfo"></div>
+
+                <h1 class="forecastTitle pt-3">5-Day Forecast:</h1>
+                <div id="forecastCards"></div>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="assets/js/script.js"></script>
+    </main>
+</body>
+</html>
