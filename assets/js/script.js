@@ -7,7 +7,6 @@ var searchHistoryEl = $('#searchHist');
 var forecastTitleEl = $('.forecastTitle');
 var searchHistory = [];
 var uvRes;
-var cityNameVal;
 
 // Setting variable to equal the current date
 var today = moment().format("M/D/YYYY");
@@ -26,11 +25,17 @@ if (localStorage.length !== 0) {
   }
 }
 
+searchHistoryEl.click(function(event) {
+  event.preventDefault();
+
+
+})
+
 // Current weather API
 function searchCurrent(event) {
   event.preventDefault();
 
-  cityNameVal = (cityName.val());
+  var cityNameVal = (cityName.val());
 
   // Catch nothing inputted
   if (!cityNameVal) {
@@ -171,7 +176,7 @@ function searchForecast(weathRes) {
       for (var i = 1; i < 6; i++) {
 
         // Card
-        var card = $('<div></div>').addClass('card').addClass('px-2').addClass('pt-2').css('width','10rem').css('float','left');
+        var card = $('<div></div>').addClass('card').addClass('px-2').addClass('pt-2').addClass('m-3').css('width','10rem').css('float','left');
 
         // Body
         var body = $('<div></div>');
