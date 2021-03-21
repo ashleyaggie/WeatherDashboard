@@ -8,7 +8,9 @@ I had a really difficult time with this assignment. I didn't feel like my unders
 
 [Deployed Website](https://ashleyaggie.github.io/WeatherDashboard/)
 
-![Top picture of website](/assets/images/website.png)
+![Picture of website landing page](/assets/images/website.png)
+
+![Picture of website with info](/assets/images/websiteInfo.png)
 
 ## Changes Made
 
